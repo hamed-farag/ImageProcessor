@@ -1,7 +1,7 @@
 import log, { error, warn } from ".";
 
 describe("Logger Suite - Log Function", () => {
-    it("hello", () => {
+    it("hello LogssssS", () => {
         expect(5).toBe(5);
     });
 });
