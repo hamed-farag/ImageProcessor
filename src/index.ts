@@ -10,6 +10,6 @@ const serverApp = express();
 initializeMiddlewares(serverApp);
 initializeRoutes(serverApp);
 
-serverApp.listen(8080, function () {
-    console.log("CORS-enabled web server listening on port 8080");
+serverApp.listen(process.env.PORT, function () {
+    console.log(`CORS-enabled web server listening on port ${process.env.PORT}`);
 });

@@ -8,4 +8,5 @@ const urlsV1 = {
     url: createBaseUrl("/url"),
 };
 
+export { BASE_URL };
 export default Object.freeze(urlsV1);
