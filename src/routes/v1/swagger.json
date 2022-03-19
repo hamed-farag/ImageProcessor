@@ -15,7 +15,7 @@
     "tags": ["udacity", "nanodegree", "Advanced", "full-stack"],
     "schemes": ["https", "http"],
     "paths": {
-        "/url": {
+        "/images": {
             "post": {
                 "tags": ["image"],
                 "summary": "uploads an image",
