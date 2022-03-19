@@ -1,4 +1,3 @@
-import log, { warn, error } from "./logger";
+import { log, warn, error } from "./logger";
 
-export { warn, error };
-export default log;
+export default { log, warn, error };
