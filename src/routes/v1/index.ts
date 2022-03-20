@@ -3,16 +3,15 @@ import SwaggerUi from "swagger-ui-express";
 
 import swaggerDocument from "./swagger.json";
 
+import { postImage } from "../../controllers/image";
+
 import urls, { BASE_URL } from "./urls";
 
 export default function (serverApp: Express): void {
     const router = express.Router();
 
-    router.post(urls.images, function (req, res) {
-        console.log(req);
-        console.log(res);
-        return res.send(urls.images);
-    });
+    // POST METHOD, SAVE UPLOADED IMAGE
+    router.post(urls.images, postImage);
 
     // register routes v1
     serverApp.use(BASE_URL, router);

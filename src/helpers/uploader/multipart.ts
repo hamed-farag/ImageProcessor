@@ -2,12 +2,13 @@ import multer from "multer";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
-import { imagesDirectory, uploadedImagesDirectory } from "../configs/dirs";
+import { imagesDirectory, uploadedImagesDirectory } from "../../constants/dirs";
+import { maxFileSize } from "../../constants/files";
 
-import { checkDirectoryExistence, createDirectory } from "../helpers/directory";
+import { checkDirectoryExistence, createDirectory } from "../directory";
 
 const storage = multer.diskStorage({
-    destination: async function (req, file, cb) {
+    destination: async function (_, _file, cb) {
         const imageDirectoryPath = path.join(process.cwd(), imagesDirectory);
         const uploadedImageUploadedDirectoryPath = path.join(
             process.cwd(),
@@ -29,7 +30,7 @@ const storage = multer.diskStorage({
 
         cb(null, uploadedImageUploadedDirectoryPath);
     },
-    filename: function (req, file, cb) {
+    filename: function (_, file, cb) {
         // extract extension // by split by .dot and get that latest item in array
         const uniqueId = uuidv4();
         const fileNameApart = file.originalname.split(".");
@@ -41,4 +42,18 @@ const storage = multer.diskStorage({
     },
 });
 
-export const uploadImagesDir = multer({ storage: storage });
+const limits = { fileSize: maxFileSize };
+
+export default multer({
+    storage,
+    limits,
+    fileFilter: function (_, file, cb) {
+        const ext = path.extname(file.originalname);
+
+        if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg") {
+            cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"));
+        } else {
+            cb(null, true);
+        }
+    },
+});
