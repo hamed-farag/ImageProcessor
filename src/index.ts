@@ -7,6 +7,8 @@ import initializeRoutes from "./routes";
 setupEnv();
 const serverApp = express();
 
+serverApp.use(express.static("public"));
+
 initializeMiddlewares(serverApp);
 initializeRoutes(serverApp);
 
