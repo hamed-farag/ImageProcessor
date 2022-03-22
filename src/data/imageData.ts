@@ -5,6 +5,8 @@ import imageManipulator from "../helpers/imageManipulator";
 import { checkDirectoryExistence, createDirectory, checkFileExistence } from "../helpers/directory";
 import logger from "../helpers/logger";
 
+import { constructThumbnailImageName } from "../utils/image";
+
 import { thumbnailsImagesDirectory, uploadedImagesDirectory } from "../constants/dirs";
 import { errorMessages } from "../constants/errors";
 
@@ -14,11 +16,7 @@ export async function processThumbnailImage(
     fileName: string
 ): Promise<string> {
     const imageSourcePath = path.join(uploadedImagesDirectory, fileName.toLowerCase());
-
-    const fileNameApart = fileName.toLowerCase().split(".");
-    const fileExtension = fileNameApart.pop();
-    const fileNameWithoutExtension = fileNameApart.join(".");
-    const newThumbnailImageFileName = `${fileNameWithoutExtension}-${height}x${width}.${fileExtension}`;
+    const newThumbnailImageFileName = constructThumbnailImageName(fileName, height, width);
     const imageThumbnailPath = path.join(thumbnailsImagesDirectory, newThumbnailImageFileName);
 
     // check first if /images/thumbnails/ exist
@@ -54,7 +52,28 @@ export async function processThumbnailImage(
     }
 }
 
-// export async function getThumbnailFile()
+export async function getThumbnailImage(
+    fileName: string,
+    height: number,
+    width: number
+): Promise<Buffer> {
+    const newThumbnailImageFileName = constructThumbnailImageName(fileName, height, width);
+    const imageThumbnailPath = path.join(thumbnailsImagesDirectory, newThumbnailImageFileName);
+
+    const isThumbnailImageAlreadyExist = await checkFileExistence(imageThumbnailPath);
+    if (isThumbnailImageAlreadyExist) {
+        // you can access image via query or postLink
+        try {
+            const thumbnailImageFile = await fs.readFileSync(imageThumbnailPath);
+            return thumbnailImageFile;
+        } catch (error) {
+            logger.error("error while reading thumbnail image file", error);
+            return null as unknown as Buffer;
+        }
+    } else {
+        return null as unknown as Buffer;
+    }
+}
 
 async function checkAndCreateThumbnailDirectory(directoryPath: string): Promise<void> {
     const isThumbnailDirectoryExist = await checkDirectoryExistence(directoryPath);

@@ -13,14 +13,14 @@
     },
     "basePath": "/api/v1",
     "tags": ["udacity", "nanodegree", "Advanced", "full-stack"],
-    "schemes": ["https", "http"],
+    "schemes": ["http"],
     "paths": {
         "/images": {
             "post": {
                 "tags": ["image"],
                 "summary": "uploads an image",
                 "description": "Process your image by upload it using this API",
-                "operationId": "uploadFile",
+                "operationId": "postImage",
                 "consumes": ["multipart/form-data"],
                 "produces": ["application/json"],
                 "parameters": [
@@ -50,16 +50,48 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
-                        "schema": { "$ref": "#/definitions/ApiResponse" }
+                        "description": "Successful Operation"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["image"],
+                "summary": "get already uploaded image",
+                "description": "Get thumbnail image from already uploaded image before",
+                "operationId": "getImage",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "width",
+                        "in": "query",
+                        "description": "Width of the new processed Image",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "height",
+                        "in": "query",
+                        "description": "Height of the new processed Image",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "filename",
+                        "in": "query",
+                        "description": "Image to upload",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
                     }
                 }
             }
-        }
-    },
-    "definitions": {
-        "ApiResponse": {
-            "type": "file"
         }
     },
     "externalDocs": { "description": "Find out more about Swagger", "url": "http://swagger.io" }

@@ -35,6 +35,14 @@ const errors = {
         code: "IP-ER-09",
         message: "Internal Error while Retrieving Image!",
     },
+    MISSING_PARAMS: {
+        code: "IP-ER-10",
+        message: "One or more parameters are missing (height, width or filename)!",
+    },
+    IMAGE_NOT_FOUND: {
+        code: "IP-ER-11",
+        message: "Image not Found!",
+    },
 };
 
 export const errorMessages = {

@@ -3,18 +3,21 @@ import SwaggerUi from "swagger-ui-express";
 
 import swaggerDocument from "./swagger.json";
 
-import { postImage } from "../../controllers/image";
+import { postImage, getImage } from "../../controllers/image";
 
-import urls, { BASE_URL } from "./urls";
+import { BASE_URL_V1, urlsV1 } from "../../constants/urls";
 
 export default function (serverApp: Express): void {
     const router = express.Router();
 
     // POST METHOD, SAVE UPLOADED IMAGE
-    router.post(urls.images, postImage);
+    router.post(urlsV1.images, postImage);
+
+    // GET METHOD, GET UPLOADED IMAGE
+    router.get(urlsV1.images, getImage);
 
     // register routes v1
-    serverApp.use(BASE_URL, router);
+    serverApp.use(BASE_URL_V1, router);
     // initialize swagger document
-    serverApp.use(BASE_URL, SwaggerUi.serve, SwaggerUi.setup(swaggerDocument));
+    serverApp.use(BASE_URL_V1, SwaggerUi.serve, SwaggerUi.setup(swaggerDocument));
 }
