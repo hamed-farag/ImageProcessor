@@ -63,18 +63,11 @@ export function postImage(req: Request, res: Response) {
                 "host"
             )}${simpleThumbnailsImagesDirectory}${imageFile}`;
 
-            const responseTemplate = `
-              <p>You can access the image via following urls</p>
-              <ul>
-                <li>
-                  ${thumbnailImageServerUrl}
-                </li>
-                <li>
-                  ${req.protocol}://${req.get("host")}${BASE_URL_V1}${urlsV1.images}?filename=${
+            const responseTemplate = `<p>You can access the image via following urls</p><ul><li>${thumbnailImageServerUrl}</li><li>${
+                req.protocol
+            }://${req.get("host")}${BASE_URL_V1}${urlsV1.images}?filename=${
                 req.file?.originalname
-            }&height=${height}&width=${width}
-                </li>
-              </ul>
+            }&height=${height}&width=${width}</li></ul>
             `;
 
             res.writeHead(200, { "Content-Type": "text/html" });

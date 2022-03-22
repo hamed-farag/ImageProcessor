@@ -7,7 +7,6 @@ export async function checkDirectoryExistence(directoryPath: string): Promise<bo
         await fs.promises.access(directoryPath);
         return true;
     } catch (error) {
-        logger.error(`${directoryPath} not exist`, error);
         return false;
     }
 }

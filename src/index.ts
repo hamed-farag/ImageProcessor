@@ -5,7 +5,7 @@ import initializeMiddlewares from "./middlewares";
 import initializeRoutes from "./routes";
 
 setupEnv();
-const serverApp = express();
+export const serverApp = express();
 
 serverApp.use(express.static("public"));
 
