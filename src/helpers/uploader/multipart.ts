@@ -1,6 +1,6 @@
 import multer from "multer";
 import path from "path";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 import { imagesDirectory, uploadedImagesDirectory } from "../../constants/dirs";
 import { maxFileSize } from "../../constants/files";
@@ -9,36 +9,33 @@ import { checkDirectoryExistence, createDirectory } from "../directory";
 
 const storage = multer.diskStorage({
     destination: async function (_, _file, cb) {
-        const imageDirectoryPath = path.join(process.cwd(), imagesDirectory);
-        const uploadedImageUploadedDirectoryPath = path.join(
-            process.cwd(),
-            uploadedImagesDirectory
-        );
-        const isImageDirectoryExist = await checkDirectoryExistence(imageDirectoryPath);
+        const isImageDirectoryExist = await checkDirectoryExistence(imagesDirectory);
 
         if (isImageDirectoryExist === false) {
-            await createDirectory(imageDirectoryPath);
+            await createDirectory(imagesDirectory);
         }
 
         const isUploadedImageDirectoryExist = await checkDirectoryExistence(
-            uploadedImageUploadedDirectoryPath
+            uploadedImagesDirectory
         );
 
         if (isUploadedImageDirectoryExist === false) {
-            await createDirectory(uploadedImageUploadedDirectoryPath);
+            await createDirectory(uploadedImagesDirectory);
         }
 
-        cb(null, uploadedImageUploadedDirectoryPath);
+        cb(null, uploadedImagesDirectory);
     },
     filename: function (_, file, cb) {
         // extract extension // by split by .dot and get that latest item in array
-        const uniqueId = uuidv4();
-        const fileNameApart = file.originalname.split(".");
-        const fileExtension = fileNameApart.pop();
+        // const uniqueId = uuidv4();
+        // const fileNameApart = file.originalname.split(".");
+        // const fileExtension = fileNameApart.pop();
 
-        const fileNameWithoutExtension = fileNameApart.join(".");
+        // const fileNameWithoutExtension = fileNameApart.join(".");
 
-        cb(null, `${fileNameWithoutExtension.toLowerCase()}-${uniqueId}.${fileExtension}`);
+        // // make image unique, as may be many users upload the same image name
+        // cb(null, `${fileNameWithoutExtension.toLowerCase()}-${uniqueId}.${fileExtension}`);
+        cb(null, file.originalname.toLowerCase());
     },
 });
 

@@ -27,6 +27,19 @@ const errors = {
         code: "IP-ER-07",
         message: "Width or Height Should be Positive Numbers!",
     },
+    IMAGE_NOT_RESIZED: {
+        code: "IP-ER-08",
+        message: "Internal Error while Resizing Image!",
+    },
+    IMAGE_NOT_RETRIEVE: {
+        code: "IP-ER-09",
+        message: "Internal Error while Retrieving Image!",
+    },
+};
+
+export const errorMessages = {
+    CANNOT_READ: "CANNOT_READ",
+    CANNOT_RESIZE: "CANNOT_RESIZE",
 };
 
 export default Object.freeze(errors);

@@ -1,5 +1,9 @@
 import path from "path";
 
-export const imagesDirectory = path.join(process.cwd(), "/images/");
-export const uploadedImagesDirectory = path.join(process.cwd(), "/images/uploaded/");
-export const thumbnailsImagesDirectory = path.join(process.cwd(), "/images/thumbnails/");
+const thumbnailsImagesDir = "/images/thumbnails/";
+
+export const imagesDirectory = path.join(process.cwd(), "/public/images/");
+export const uploadedImagesDirectory = path.join(process.cwd(), "/public/images/uploaded/");
+export const thumbnailsImagesDirectory = path.join(process.cwd(), `/public${thumbnailsImagesDir}`);
+
+export const simpleThumbnailsImagesDirectory = thumbnailsImagesDir;
