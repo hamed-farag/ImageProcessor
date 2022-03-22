@@ -10,8 +10,8 @@
         "build": "run-s build:pre build:prod",
         "test": "run-s build jasmine",
         "jasmine": "jasmine",
-        "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write",
-        "lint": "eslint . --ext .ts"
+        "prettier": "prettier --config .prettierrc src/**/*.ts --write",
+        "lint": "npx eslint src/* --ext .ts"
     },
     "author": "hamed-farag",
     "license": "ISC",
