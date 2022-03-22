@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs-extra";
 
 import imageManipulator from "../helpers/imageManipulator";
-import { checkDirectoryExistence, createDirectory, checkFileExistence } from "../helpers/directory";
+import directoryHelper from "../helpers/directory";
 import logger from "../helpers/logger";
 
 import { constructThumbnailImageName } from "../utils/image";
@@ -22,7 +22,9 @@ export async function processThumbnailImage(
     // check first if /images/thumbnails/ exist
     await checkAndCreateThumbnailDirectory(thumbnailsImagesDirectory);
 
-    const isThumbnailImageAlreadyExist = await checkFileExistence(imageThumbnailPath);
+    const isThumbnailImageAlreadyExist = await directoryHelper.checkFileExistence(
+        imageThumbnailPath
+    );
     if (isThumbnailImageAlreadyExist) {
         try {
             await fs.readFileSync(imageThumbnailPath);
@@ -60,7 +62,9 @@ export async function getThumbnailImage(
     const newThumbnailImageFileName = constructThumbnailImageName(fileName, height, width);
     const imageThumbnailPath = path.join(thumbnailsImagesDirectory, newThumbnailImageFileName);
 
-    const isThumbnailImageAlreadyExist = await checkFileExistence(imageThumbnailPath);
+    const isThumbnailImageAlreadyExist = await directoryHelper.checkFileExistence(
+        imageThumbnailPath
+    );
     if (isThumbnailImageAlreadyExist) {
         // you can access image via query or postLink
         try {
@@ -76,9 +80,9 @@ export async function getThumbnailImage(
 }
 
 async function checkAndCreateThumbnailDirectory(directoryPath: string): Promise<void> {
-    const isThumbnailDirectoryExist = await checkDirectoryExistence(directoryPath);
+    const isThumbnailDirectoryExist = await directoryHelper.checkDirectoryExistence(directoryPath);
 
     if (isThumbnailDirectoryExist === false) {
-        await createDirectory(directoryPath);
+        await directoryHelper.createDirectory(directoryPath);
     }
 }

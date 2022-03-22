@@ -5,22 +5,24 @@ import path from "path";
 import { imagesDirectory, uploadedImagesDirectory } from "../../constants/dirs";
 import { maxFileSize } from "../../constants/files";
 
-import { checkDirectoryExistence, createDirectory } from "../directory";
+import directoryHelper from "../directory";
 
 const storage = multer.diskStorage({
     destination: async function (_, _file, cb) {
-        const isImageDirectoryExist = await checkDirectoryExistence(imagesDirectory);
+        const isImageDirectoryExist = await directoryHelper.checkDirectoryExistence(
+            imagesDirectory
+        );
 
         if (isImageDirectoryExist === false) {
-            await createDirectory(imagesDirectory);
+            await directoryHelper.createDirectory(imagesDirectory);
         }
 
-        const isUploadedImageDirectoryExist = await checkDirectoryExistence(
+        const isUploadedImageDirectoryExist = await directoryHelper.checkDirectoryExistence(
             uploadedImagesDirectory
         );
 
         if (isUploadedImageDirectoryExist === false) {
-            await createDirectory(uploadedImagesDirectory);
+            await directoryHelper.createDirectory(uploadedImagesDirectory);
         }
 
         cb(null, uploadedImagesDirectory);
