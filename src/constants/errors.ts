@@ -11,6 +11,22 @@ const errors = {
         code: "IP-ER-03",
         message: "Something Wrong!",
     },
+    FILE_NOT_UPLOADED: {
+        code: "IP-ER-04",
+        message: "File Not Found, please attach image file!",
+    },
+    DIMENSIONS_NOT_SUPPORTED: {
+        code: "IP-ER-05",
+        message: "Width or Height not Supported!",
+    },
+    DIMENSIONS_NOT_NUMBERS: {
+        code: "IP-ER-06",
+        message: "Width or Height not Numbers!",
+    },
+    DIMENSIONS_NOT_POSITIVE: {
+        code: "IP-ER-07",
+        message: "Width or Height Should be Positive Numbers!",
+    },
 };
 
 export default Object.freeze(errors);
