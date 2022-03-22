@@ -26,7 +26,7 @@
                 "parameters": [
                     {
                         "name": "width",
-                        "in": "path",
+                        "in": "formData",
                         "description": "Width of the new processed Image",
                         "required": true,
                         "type": "integer",
@@ -34,7 +34,7 @@
                     },
                     {
                         "name": "height",
-                        "in": "path",
+                        "in": "formData",
                         "description": "Height of the new processed Image",
                         "required": true,
                         "type": "integer",
