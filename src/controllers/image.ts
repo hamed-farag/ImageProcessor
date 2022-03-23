@@ -40,7 +40,7 @@ export function postImage(req: Request, res: Response) {
             return res.status(500).send({ ...errors.DIMENSIONS_NOT_NUMBERS, error });
         }
 
-        if (Number(height) < 0 || Number(width) < 0) {
+        if (Number(height) <= 0 || Number(width) <= 0) {
             return res.status(500).send({ ...errors.DIMENSIONS_NOT_POSITIVE, error });
         }
 
@@ -89,7 +89,7 @@ export async function getImage(req: Request, res: Response) {
         return res.status(500).send({ ...errors.DIMENSIONS_NOT_NUMBERS });
     }
 
-    if (Number(height) < 0 || Number(width) < 0) {
+    if (Number(height) <= 0 || Number(width) <= 0) {
         return res.status(500).send({ ...errors.DIMENSIONS_NOT_POSITIVE });
     }
 
